@@ -1,24 +1,36 @@
 <template>
-  <p v-if="waitOnPost">Loading...</p>
-  <div v-else-if="!waitOnPost">
-    <h3>Title</h3>
-    <p>{{ post.title }}</p>
-    <h3>Body</h3>
-    <p>{{ post.body }}</p>
-    <div>
-      <h3>Comments</h3>
-      <p v-if="postReady && waitOnComment">Load comments...</p>
-      <ul v-else-if="!waitOnComment && commentsReady">
-        <li v-for="comment in comments" :key="comment.id">
-          <h4>{{ comment.name }}</h4>
-          <p>comment: {{ comment.body }}</p>
-        </li>
-      </ul>
-      <p v-else-if="commentsReady">No comment for this post.</p>
-      <button v-if="!noMoreComment" @click="loadMoreComments">More</button>
-    </div>
-  </div>
-  <router-link to="/">Posts List</router-link>
+  <BaseModal
+    v-show="!waitOnPost"
+    @close="
+      $router.push({
+        name: 'posts',
+      })
+    "
+  >
+    <template #header>
+      <h3>{{ post.title }}</h3>
+    </template>
+    <template #default>
+      <div>
+        <p>{{ post.body }}</p>
+        <div class="comment">
+          <h3 class="comment__title">Comments</h3>
+          <p v-if="postReady && waitOnComment">Load comments...</p>
+          <ul
+            class="comment__items"
+            v-else-if="!waitOnComment && commentsReady"
+          >
+            <li v-for="comment in comments" :key="comment.id">
+              <h4>{{ comment.name }}</h4>
+              <p>{{ comment.body }}</p>
+            </li>
+          </ul>
+          <p v-else-if="commentsReady">No comment for this post.</p>
+          <button v-if="!noMoreComment" @click="loadMoreComments">More</button>
+        </div>
+      </div>
+    </template>
+  </BaseModal>
 </template>
 
 <script>
@@ -125,3 +137,28 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.comment {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.6em;
+}
+
+.comment__title {
+  background-color: lightgray;
+}
+
+.comment__items {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.6rem;
+}
+
+.comment h3,
+.comment h4,
+.comment p {
+  margin: 0;
+}
+</style>

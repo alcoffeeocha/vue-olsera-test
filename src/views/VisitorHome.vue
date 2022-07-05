@@ -1,16 +1,18 @@
 <template>
-  <h1>Visitor Home</h1>
-  <p v-if="loading && !posts">Showing posts...</p>
-  <PostList
-    v-else-if="Array.isArray(posts) && posts.length > 0"
-    :posts="posts"
-    :cta="toPostDetail"
-  />
-  <p v-else>There are no posts right now</p>
-  <button v-if="!noMorePost" @click="loadMorePosts">More</button>
-  <router-view></router-view><br />
-  <router-link :to="{ name: 'admin' }">Admin</router-link><br />
-  <router-link :to="{ name: 'liked-posts' }">Liked Posts</router-link>
+  <main>
+    <h1>Visitor Home</h1>
+    <p v-if="loading && !posts">Showing posts...</p>
+    <PostList
+      v-else-if="Array.isArray(posts) && posts.length > 0"
+      :posts="posts"
+      :cta="toPostDetail"
+    />
+    <p v-else>There are no posts right now</p>
+    <button style="margin: 0 auto" v-if="!noMorePost" @click="loadMorePosts">
+      More
+    </button>
+  </main>
+  <router-view></router-view>
 </template>
 
 <script>

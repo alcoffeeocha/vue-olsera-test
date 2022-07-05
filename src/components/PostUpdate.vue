@@ -1,19 +1,35 @@
 <template>
-  <h1>{{ id ? "Update" : "Create New" }} Post</h1>
-  <form @submit.prevent="handleSubmit">
-    <label for="title">Title</label>
-    <input
-      :disabled="loading"
-      type="text"
-      autofocus
-      v-model.lazy="input.title"
-      required
-    />
-    <label for="body">Body</label>
-    <input :disabled="loading" type="text" v-model.lazy="input.body" required />
-    <button v-if="id" @click.prevent="onDeletePost">DELETE</button>
-    <button type="submit">SAVE</button>
-  </form>
+  <BaseModal @close="closeModal">
+    <template #header>
+      <h1>{{ id ? "Update" : "Create New" }} Post</h1>
+    </template>
+    <template #default>
+      <form @submit.prevent="handleSubmit">
+        <label for="title">Title</label>
+        <input
+          :disabled="loading"
+          type="text"
+          autofocus
+          v-model.lazy="input.title"
+          required
+        />
+        <label for="body">Body</label>
+        <input
+          :disabled="loading"
+          type="text"
+          v-model.lazy="input.body"
+          required
+        />
+        <input type="submit" hidden />
+      </form>
+    </template>
+    <template #footer>
+      <button v-if="id" class="danger" @click.prevent="onDeletePost">
+        DELETE
+      </button>
+      <button @click="handleSubmit">SAVE</button>
+    </template>
+  </BaseModal>
 </template>
 
 <script>
@@ -57,6 +73,7 @@ export default {
       if (this.createMode) {
         this.clearInput();
       }
+      this.closeModal();
     },
     async getPostById(id) {
       try {
@@ -77,6 +94,11 @@ export default {
         this.$emit("deletePost", this.id);
       }
     },
+    closeModal() {
+      this.$router.push({
+        name: "admin",
+      });
+    },
   },
   mounted() {
     if (this.id) {
@@ -87,3 +109,20 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.6rem;
+}
+label {
+  font-weight: 600;
+  font-size: larger;
+}
+input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+</style>

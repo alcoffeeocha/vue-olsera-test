@@ -1,6 +1,8 @@
 <template>
-  <router-view name="header"></router-view>
-  <router-view></router-view>
+  <div class="container">
+    <router-view name="header"></router-view>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -21,4 +23,44 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+li {
+  list-style: none;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0 2rem;
+}
+button {
+  padding: 0.7em 2.2em;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+}
+button.secondary {
+  background-color: white;
+  color: black;
+}
+button.transparent {
+  background-color: transparent;
+  color: black;
+}
+button.danger {
+  background-color: maroon;
+  color: white;
+}
+a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+</style>

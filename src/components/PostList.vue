@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="posts">
     <PostItem
       :post="post"
       :likeable="likeable"
@@ -35,3 +35,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.posts {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+</style>

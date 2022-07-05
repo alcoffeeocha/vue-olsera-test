@@ -1,28 +1,33 @@
 <template>
-  <h1>Admin Home</h1>
-  <p v-if="loading && !posts">Showing Posts...</p>
-  <PostList
-    :likeable="false"
-    :cta="editPost"
-    v-else-if="Array.isArray(posts) && posts.length > 0"
-    :posts="posts"
-  />
-  <p v-else>You have not created any post</p>
-  <button
+  <main>
+    <h1>Admin Home</h1>
+    <p v-if="loading && !posts">Showing Posts...</p>
+    <PostList
+      :likeable="false"
+      :cta="editPost"
+      v-else-if="Array.isArray(posts) && posts.length > 0"
+      :posts="posts"
+    />
+    <p v-else>You have not created any post</p>
+    <button style="margin: 0 auto" v-if="!noMorePost" @click="loadMorePosts">
+      More
+    </button>
+  </main>
+  <router-view
+    @updatePost="handleUpdatePost"
+    @deletePost="handleDeletePost"
+  ></router-view>
+  <img
+    class="add-post"
     @click="
       $router.push({
         name: 'admin-create',
       })
     "
-  >
-    Add Post
-  </button>
-  <button v-if="!noMorePost" @click="loadMorePosts">More</button>
-  <router-link to="/">Visitor Page</router-link>
-  <router-view
-    @updatePost="handleUpdatePost"
-    @deletePost="handleDeletePost"
-  ></router-view>
+    src="@/assets/plus.svg"
+    width="40"
+    alt="Add Post"
+  />
 </template>
 
 <script>
@@ -158,3 +163,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.add-post {
+  z-index: 1000;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  padding: 20px;
+  border-radius: 50%;
+  background-color: lightgray;
+  cursor: pointer;
+}
+</style>
