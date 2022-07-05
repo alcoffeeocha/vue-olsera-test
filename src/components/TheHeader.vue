@@ -69,12 +69,10 @@ export default {
 <style scoped>
 header {
   color: white;
-  background-color: var(--primary-color);
   height: 15vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
 }
 
 .left {

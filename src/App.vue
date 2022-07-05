@@ -1,6 +1,10 @@
 <template>
+  <header class="header">
+    <div class="container">
+      <router-view name="header"></router-view>
+    </div>
+  </header>
   <div class="container">
-    <router-view name="header"></router-view>
     <router-view></router-view>
   </div>
 </template>
@@ -26,6 +30,9 @@ export default {
 <style>
 li {
   list-style: none;
+}
+.header {
+  background-color: var(--primary-color);
 }
 .container {
   max-width: 960px;

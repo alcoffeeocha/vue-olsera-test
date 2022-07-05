@@ -170,9 +170,9 @@ export default {
   position: fixed;
   bottom: 50px;
   right: 50px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 50%;
-  background-color: lightgray;
+  background-color: var(--primary-color);
   cursor: pointer;
 }
 </style>

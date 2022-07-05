@@ -27,7 +27,14 @@
       <button v-if="id" class="danger" @click.prevent="onDeletePost">
         DELETE
       </button>
-      <button @click="handleSubmit">SAVE</button>
+      <button
+        :class="{
+          transparent: createMode,
+        }"
+        @click="handleSubmit"
+      >
+        SAVE
+      </button>
     </template>
   </BaseModal>
 </template>

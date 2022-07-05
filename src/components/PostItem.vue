@@ -80,5 +80,16 @@ img {
 
 .card__content {
   flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.4rem;
+}
+
+h2 {
+  font-size: 18px;
+}
+h2,
+p {
+  margin: 0;
 }
 </style>

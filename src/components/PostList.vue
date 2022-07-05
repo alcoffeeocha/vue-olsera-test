@@ -41,5 +41,10 @@ export default {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
+  padding: 0;
+}
+
+li:nth-child(even) {
+  background-color: #eee;
 }
 </style>
