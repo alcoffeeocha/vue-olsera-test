@@ -8,4 +8,7 @@ export default {
   isAdmin(state) {
     return !!state.userId;
   },
+  likedPostsId(state) {
+    return state.likedPostsId;
+  },
 };

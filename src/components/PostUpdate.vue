@@ -11,7 +11,7 @@
     />
     <label for="body">Body</label>
     <input :disabled="loading" type="text" v-model.lazy="input.body" required />
-    <button v-if="id" @click="deletePost">DELETE</button>
+    <button v-if="id" @click.prevent="onDeletePost">DELETE</button>
     <button type="submit">SAVE</button>
   </form>
 </template>
@@ -36,6 +36,13 @@ export default {
     loading: true,
     createMode: true,
   }),
+  watch: {
+    id(newId, oldId) {
+      if (newId !== oldId) {
+        this.getPostById(newId);
+      }
+    },
+  },
   methods: {
     clearInput() {
       this.input.title = "";
@@ -51,12 +58,6 @@ export default {
         this.clearInput();
       }
     },
-    deletePost() {
-      this.$emit("deletePost", this.id);
-      this.$router.replace({
-        name: "admin",
-      });
-    },
     async getPostById(id) {
       try {
         const postResponse = await this.req.get("posts/" + id);
@@ -70,6 +71,11 @@ export default {
         });
       }
       this.loading = false;
+    },
+    onDeletePost() {
+      if (window.confirm("are you sure?")) {
+        this.$emit("deletePost", this.id);
+      }
     },
   },
   mounted() {

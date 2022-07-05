@@ -4,11 +4,12 @@
   <PostList
     v-else-if="Array.isArray(posts) && posts.length > 0"
     :posts="posts"
+    :cta="toPostDetail"
   />
   <p v-else>There are no posts right now</p>
   <button v-if="!noMorePost" @click="loadMorePosts">More</button>
-  <router-view></router-view>
-  <router-link :to="{ name: 'admin' }">Admin</router-link>&nbsp;
+  <router-view></router-view><br />
+  <router-link :to="{ name: 'admin' }">Admin</router-link><br />
   <router-link :to="{ name: 'liked-posts' }">Liked Posts</router-link>
 </template>
 
@@ -51,6 +52,14 @@ export default {
       this.currentPage = this.currentPage + 1;
       this.getPosts({
         page: this.currentPage,
+      });
+    },
+    toPostDetail(id) {
+      this.$router.push({
+        name: "post",
+        params: {
+          id,
+        },
       });
     },
   },

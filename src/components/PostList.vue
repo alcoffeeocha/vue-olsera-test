@@ -1,12 +1,18 @@
 <template>
-  <h1>List</h1>
   <ul>
-    <PostItem :post="post" v-for="post in posts" :key="post.id" />
+    <PostItem
+      :post="post"
+      :likeable="likeable"
+      v-for="post in posts"
+      :key="post.id"
+      @postClicked="cta"
+    />
   </ul>
 </template>
 
 <script>
 import PostItem from "./PostItem.vue";
+
 export default {
   name: "PostList",
   components: {
@@ -15,6 +21,15 @@ export default {
   props: {
     posts: {
       type: Array,
+      required: true,
+    },
+    likeable: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    cta: {
+      type: Function,
       required: true,
     },
   },
